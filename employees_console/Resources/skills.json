@@ -1,0 +1,46 @@
+[
+    {
+        "Id": 1,
+        "Name" : "Backend"
+    },
+    {
+        "Id": 2,
+        "Name" : "Frontend"
+    },
+    {
+        "Id": 3,
+        "Name" : "Azure"
+    },
+    {
+        "Id": 4,
+        "Name" : "AI"
+    },
+    {
+        "Id": 5,
+        "Name" : "Database"
+    },
+    {
+        "Id": 6,
+        "Name" : "IaC"
+    },
+    {
+        "Id": 7,
+        "Name" : "CICD"
+    },
+    {
+        "Id": 8,
+        "Name" : "AWS"
+    },
+    {
+        "Id": 9,
+        "Name" : "Test Automation"
+    },
+    {
+        "Id": 10,
+        "Name" : "Docker"
+    },
+    {
+        "Id":11,
+        "Name" : "Kubernetes"
+    }
+]
