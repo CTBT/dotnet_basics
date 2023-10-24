@@ -1,0 +1,10 @@
+[
+    {
+        "Id": 1,
+        "Name" : "TestSkill1"
+    },
+    {
+        "Id": 2,
+        "Name" : "TestSkill2"
+    }
+]
