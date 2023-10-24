@@ -1,0 +1,5 @@
+[
+  {"Id":1,"Name":"Tester1","Skills":[1,2,3,4,5],"Location":0},
+  {"Id":2,"Name":"Tester2","Skills":[],"Location":0},
+  {"Id":3,"Name":"Tester3","Skills":[6,7,8,9],"Location":1}
+]
