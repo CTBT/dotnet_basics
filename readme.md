@@ -60,7 +60,7 @@ Open ``Program.cs`` and try to implement the commented requirements.
 - improving test readability  with fluentvalidations
 
 ---
-# HandsOn - Querying data with LINQ
+# HandsOn - Writing test assertions
 
 Prepared branch ``feature/tests``
 
