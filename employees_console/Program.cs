@@ -1,4 +1,4 @@
-﻿using EmployeeConsole.Utilities;
+using EmployeeConsole.Utilities;
 using EmployeeCore.IO;
 using EmployeeCore.Repositories;
 using Microsoft.Extensions.Logging;
