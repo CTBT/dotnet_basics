@@ -1,33 +1,49 @@
-﻿using EmployeeCore.IO;
-using EmployeeCore.Logging;
+﻿using EmployeeConsole.Utilities;
+using EmployeeCore.IO;
 using EmployeeCore.Repositories;
 using Microsoft.Extensions.Logging;
 
-var logger = LoggingConfiguration.GetLoggingFactory().CreateLogger<Program>();
+// setup logging
+var loggerFactory = AppConfiguration.GetLoggingFactory();
 
-logger.LogInformation("----- Employee-Console started. ------");
-var repo = new EmployeeRepo(new EmployeeDataReader());
+// get logger
+var mainLogger = loggerFactory.CreateLogger<Program>();
 
-// 1. get employee with id=0 and print his name and location
+mainLogger.LogInformation("----- Application started. ------");
 
-// 2. print the name(not id) of the skills of that employee
+// create EmployeeRepo instance
+var repo = new EmployeeRepo(new EmployeeDataReader(loggerFactory.CreateLogger<EmployeeDataReader>()));
 
-// 3. print the number of employees with the skill 'Database':
-
-// 4. print 10 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
-
-// 5. print the number of employees per skill
-
-// 6. Print the number of employees per location ordered by there number.
-
-logger.LogInformation("----- Employee-Console finished. ------");
-
+// Solve the following tasks
 // methods that could be helpfull:
 // .Select()
 // .Count()
 // .Take()
+// .Single() / .SingleOrDefault()
+// .First() / .FirstOrDefault()
 // GroupBy()
 // ToDictionary()
 // OrderBy()
+
+
+// 1. get employee with id=0 and print his name and location
+mainLogger.LogInformation("----- Result task 1: ------");
+
+// 2. print the name(not id) of the skills of that employee
+mainLogger.LogInformation("----- Result task 2: ------");
+
+// 3. print the number of employees with the skill 'Database':
+mainLogger.LogInformation("----- Result task 3: ------");
+
+// 4. print 10 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
+mainLogger.LogInformation("----- Result task 4: ------");
+
+// 5. print the number of employees per skill
+mainLogger.LogInformation("----- Result task 5: ------");
+
+// 6. Print the number of employees per location ordered by there number.
+mainLogger.LogInformation("----- Result task 6: ------");
+
+mainLogger.LogInformation("----- Application finished. ------");
 
 Console.ReadKey();
