@@ -1,6 +1,7 @@
 using EmployeeConsole.Utilities;
 using EmployeeCore.IO;
-using EmployeeCore.Repositories;
+using EmployeeCore.Models;
+using EmployeeCore.Services;
 using Microsoft.Extensions.Logging;
 
 // get main logger
@@ -8,8 +9,8 @@ var mainLogger = AppConfiguration.GetLogger<Program>();
 mainLogger.LogInformation("----- Application started. ------");
 
 // create instances
-var repo = new EmployeeRepo(new EmployeeDataReader(AppConfiguration.GetLogger<EmployeeDataReader>()));
-var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>(), repo);
+var repo = new EmployeeFileReader(AppConfiguration.GetLogger<EmployeeFileReader>());
+var service = new EmployeeService();
 
 // Solve the tasks defined below
 // methods that could be helpfull:
@@ -22,26 +23,25 @@ var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>(),
 // ToDictionary()
 // OrderBy()
 
-
 try
 {
-    // 1. get employee with id=0 and print his name and location
-    service.Task1();
+    // 1. find someone in stuttgart that has all skills and has a doctor degree (starts with "Dr.") and print his name
+    var task1Result = service.Task1_GetEmployee();
 
     // 2. print the skill-names of that employee
-    service.Task2();
+    var task2Result = service.Task2_GetSkillNames(task1Result!);
 
     // 3. print the number of employees with the skill 'Database':
-    service.Task3();
+    var task3Result = service.Task3_GetEmployeeCounts(5);
 
     // 4. print 5 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
-    service.Task4();
+    var task4Result = service.Task4_GetExperts(5, Location.Bonn);
 
     // 5. print the number of employees per skill
-    service.Task5();
+    var task5Results = service.Task5_GetEmployeesPerSkill();
 
     // 6. Print the number of employees per location ordered by there number.
-    service.Task6();
+    var task6Result = service.Task6_GetEmployeesPerLocation();
 }
 catch (NotImplementedException)
 {
