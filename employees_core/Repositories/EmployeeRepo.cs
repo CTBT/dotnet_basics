@@ -1,13 +1,10 @@
 using EmployeeCore.IO;
-using EmployeeCore.Logging;
 using EmployeeCore.Models;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.Repositories;
 
 public class EmployeeRepo
 {
-    private readonly ILogger<EmployeeRepo> _logger;
     private readonly IEmployeeDataReader _dataReader;
     
     /// <summary>
@@ -15,7 +12,6 @@ public class EmployeeRepo
     /// </summary>
     public EmployeeRepo(IEmployeeDataReader dataReader)
     {
-        _logger = LoggingConfiguration.GetLoggingFactory().CreateLogger<EmployeeRepo>();
         _dataReader = dataReader;
     }
 
