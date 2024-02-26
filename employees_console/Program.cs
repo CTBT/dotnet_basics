@@ -3,18 +3,15 @@ using EmployeeCore.IO;
 using EmployeeCore.Repositories;
 using Microsoft.Extensions.Logging;
 
-// setup logging
-var loggerFactory = AppConfiguration.GetLoggingFactory();
-
-// get logger
-var mainLogger = loggerFactory.CreateLogger<Program>();
-
+// get main logger
+var mainLogger = AppConfiguration.GetLogger<Program>();
 mainLogger.LogInformation("----- Application started. ------");
 
-// create EmployeeRepo instance
-var repo = new EmployeeRepo(new EmployeeDataReader(loggerFactory.CreateLogger<EmployeeDataReader>()));
+// create instances
+var repo = new EmployeeRepo(new EmployeeDataReader(AppConfiguration.GetLogger<EmployeeDataReader>()));
+var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>(), repo);
 
-// Solve the following tasks
+// Solve the tasks defined below
 // methods that could be helpfull:
 // .Select()
 // .Count()
@@ -25,29 +22,47 @@ var repo = new EmployeeRepo(new EmployeeDataReader(loggerFactory.CreateLogger<Em
 // ToDictionary()
 // OrderBy()
 
-// 1. get employee with id=0 and print his name and location
-mainLogger.LogInformation("----- Result task 1 (employee-name): ------");
-mainLogger.LogError("Missing implementation");
 
-// 2. print the name(not id) of the skills of that employee
-mainLogger.LogInformation("----- Result task 2 (skill-names): ------");
-mainLogger.LogError("Missing implementation");
+try
+{
+    // 1. find someone in stuttgart that has all skills and has a doctor degree (starts with "Dr.") and print his name
+    var task1Result = service.Task1();
+    mainLogger.LogInformation("Found {EmployeeName}", task1Result?.Name);
 
-// 3. print the number of employees with the skill 'Database':
-mainLogger.LogInformation("----- Result task 3 (employee-counts): ------");
-mainLogger.LogError("Missing implementation");
+    // 2. print the skill-names of that employee
+    var task2Result = service.Task2(task1Result!);
+    mainLogger.LogInformation("Employee skills:{Skills}",string.Join(",", task2Result));
 
-// 4. print 5 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
-mainLogger.LogInformation("----- Result task 4 (database experts in bonn): ------");
-mainLogger.LogError("Missing implementation");
+    // 3. print the number of employees with the skill 'Database':
+    var task3Result = service.Task3();
+    mainLogger.LogInformation("Employees with skill \'Database\': {Count}", task3Result);
 
-// 5. print the number of employees per skill
-mainLogger.LogInformation("----- Result task 5 (employees per skill): ------");
-mainLogger.LogError("Missing implementation");
+    // 4. print 5 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
+    var task4Result = service.Task4();
+    mainLogger.LogInformation("5 employees with skill database in bonn:{Employees}",
+        string.Join(",",task4Result.Select(i => i.Name)));
 
-// 6. Print the number of employees per location ordered by there number.
-mainLogger.LogInformation("----- Result task 6 (employees per location ordered): ------");
-mainLogger.LogError("Missing implementation");
+    // 5. print the number of employees per skill
+    var task5Results = service.Task5();
+    foreach (var skillCount in task5Results)
+    {
+        mainLogger.LogInformation("Skill: {SkillName} - {Count}", skillCount.Key.Name, skillCount.Value);
+    }
+
+    // 6. Print the number of employees per location ordered by there number.
+    var task6Result = service.Task6();
+    foreach (var pair in task6Result)
+    {
+        mainLogger.LogInformation("Location: {Location} - {Count} employees", 
+            pair.Key.ToString(), 
+            pair.Value.ToString());
+    }
+}
+catch (NotImplementedException)
+{
+    mainLogger.LogCritical("The application crashed because of missing implementations :(");
+}
+
 
 mainLogger.LogInformation("----- Application finished. ------");
 
