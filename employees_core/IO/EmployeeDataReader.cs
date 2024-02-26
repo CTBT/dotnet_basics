@@ -1,11 +1,19 @@
 using System.Text.Json;
+using EmployeeCore.Logging;
 using EmployeeCore.Models;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.IO;
 
-public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeDataReader
+public class EmployeeDataReader : IEmployeeDataReader
 {
+    private readonly ILogger<EmployeeDataReader> _logger;
+
+    public EmployeeDataReader(ILogger<EmployeeDataReader> logger)
+    {
+        _logger = logger;
+    }
+    
     public static IEnumerable<T> ReadFile<T>(string fileName)
     {
         var jsonString = File.ReadAllText(fileName);
@@ -18,7 +26,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// <returns></returns>
     public IEnumerable<Employee> ReadEmployeesFile()
     {
-        logger.LogDebug("Read employee file");
+        _logger.LogDebug("Full employee list read operation");
         return ReadFile<Employee>("Resources/employees.json");
     }
 
@@ -28,7 +36,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// <returns></returns>
     public IEnumerable<Skill> ReadSkillsFile()
     {
-        logger.LogDebug("Read skills file");
+        _logger.LogDebug("Full skill list read operation");
         return ReadFile<Skill>("Resources/skills.json");
     }
 
