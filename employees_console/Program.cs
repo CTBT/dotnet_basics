@@ -22,24 +22,33 @@ var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>(),
 // ToDictionary()
 // OrderBy()
 
-// 1. get employee with id=0 and print his name and location
-service.Task1();
 
-// 2. print the name(not id) of the skills of that employee
-service.Task2();
+try
+{
+    // 1. get employee with id=0 and print his name and location
+    service.Task1();
 
-// 3. print the number of employees with the skill 'Database':
-service.Task3();
+    // 2. print the skill-names of that employee
+    service.Task2();
 
-// 4. print 5 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
-service.Task4();
+    // 3. print the number of employees with the skill 'Database':
+    service.Task3();
 
-// 5. print the number of employees per skill
+    // 4. print 5 of the employees with the skill 'Database' and the location 'Bonn' ordered by name
+    service.Task4();
 
-service.Task5();
+    // 5. print the number of employees per skill
+    service.Task5();
 
-// 6. Print the number of employees per location ordered by there number.
-service.Task6();
+    // 6. Print the number of employees per location ordered by there number.
+    service.Task6();
+}
+catch (NotImplementedException e)
+{
+    mainLogger.LogCritical(e, "The application because of missing implementations :(");
+    throw;
+}
+
 
 mainLogger.LogInformation("----- Application finished. ------");
 
