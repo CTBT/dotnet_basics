@@ -30,7 +30,7 @@ try
     mainLogger.LogInformation("Found {EmployeeName}", task1Result?.Name);
 
     // 2. print the skill-names of that employee
-    var task2Result = service.Task2(task1Result);
+    var task2Result = service.Task2(task1Result!);
     mainLogger.LogInformation("Employee skills:{Skills}",string.Join(",", task2Result));
 
     // 3. print the number of employees with the skill 'Database':
