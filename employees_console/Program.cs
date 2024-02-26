@@ -43,10 +43,9 @@ try
     // 6. Print the number of employees per location ordered by there number.
     service.Task6();
 }
-catch (NotImplementedException e)
+catch (NotImplementedException)
 {
-    mainLogger.LogCritical(e, "The application because of missing implementations :(");
-    throw;
+    mainLogger.LogCritical("The application crashed because of missing implementations :(");
 }
 
 

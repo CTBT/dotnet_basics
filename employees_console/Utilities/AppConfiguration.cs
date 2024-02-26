@@ -13,7 +13,15 @@ public static class AppConfiguration
     private static ILoggerFactory GetLoggingFactory()
     {
         return LoggerFactory
-            .Create(builder => builder.AddConfiguration(GetConfig().GetSection("Logging")).AddConsole());
+            .Create(builder => 
+                builder.AddConfiguration(GetConfig().GetSection("Logging"))
+                .AddSimpleConsole(options =>
+                {
+                    options.IncludeScopes = true;
+                    options.SingleLine = true;
+                    options.TimestampFormat = "HH:mm:ss ";
+                })
+                );
     }
 
     public static ILogger<T> GetLogger<T>()
