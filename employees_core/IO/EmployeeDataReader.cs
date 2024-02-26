@@ -18,7 +18,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// <returns></returns>
     public IEnumerable<Employee> ReadEmployeesFile()
     {
-        logger.LogDebug("Read employee file");
+        logger.LogWarning("Full employee list read operation");
         return ReadFile<Employee>("Resources/employees.json");
     }
 
@@ -28,7 +28,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// <returns></returns>
     public IEnumerable<Skill> ReadSkillsFile()
     {
-        logger.LogDebug("Read skills file");
+        logger.LogWarning("Full skill list read operation");
         return ReadFile<Skill>("Resources/skills.json");
     }
 

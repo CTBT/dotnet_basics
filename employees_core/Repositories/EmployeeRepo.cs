@@ -16,17 +16,6 @@ public class EmployeeRepo
     }
 
     /// <summary>
-    /// Get an employee by it´s name.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Employee GetEmployee(int id)
-    {
-        var employees = _dataReader.ReadEmployeesFile();
-        return employees.SingleOrDefault(i => i.Id == id)!;
-    }
-
-    /// <summary>
     /// Get employees list.
     /// </summary>
     /// <param name="skillFilter"></param>
@@ -49,18 +38,6 @@ public class EmployeeRepo
         }
         
         return employees;
-    }
-
-    /// <summary>
-    /// Get the name of a skill.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public string GetSkillName(int id)
-    {
-        var skills = _dataReader.ReadSkillsFile().ToList();
-
-        return skills.Single(i => i.Id == id).Name;
     }
     
     /// <summary>
