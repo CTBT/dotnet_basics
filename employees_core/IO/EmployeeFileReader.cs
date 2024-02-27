@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.IO;
 
-public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeDataReader
+public class EmployeeFileReader(ILogger<EmployeeFileReader> logger) : IEmployeeRepository
 {
-    public static IEnumerable<T> ReadFile<T>(string fileName)
+    private static IEnumerable<T> ReadFile<T>(string fileName)
     {
         var jsonString = File.ReadAllText(fileName);
         return JsonSerializer.Deserialize<IEnumerable<T>>(jsonString) ?? new List<T>();
@@ -16,7 +16,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// Read employees.json file
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Employee> ReadEmployeesFile()
+    public IEnumerable<Employee> GetEmployeeData()
     {
         logger.LogDebug("Full employee list read operation");
         return ReadFile<Employee>("Resources/employees.json");
@@ -26,7 +26,7 @@ public class EmployeeDataReader(ILogger<EmployeeDataReader> logger) : IEmployeeD
     /// Read skills.json file.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Skill> ReadSkillsFile()
+    public IEnumerable<Skill> GetSkillData()
     {
         logger.LogDebug("Full skill list read operation");
         return ReadFile<Skill>("Resources/skills.json");
