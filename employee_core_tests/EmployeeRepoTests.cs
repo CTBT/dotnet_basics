@@ -1,5 +1,5 @@
 using EmployeeCore.IO;
-using EmployeeCore.Repositories;
+using EmployeeCore.Services;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace employee_core_tests;
@@ -9,9 +9,8 @@ public class EmployeeRepoTests
 
     private EmployeeService GetService()
     {
-        var reader = new EmployeeDataReader(NullLogger<EmployeeDataReader>.Instance);
-        var repo = new EmployeeRepo(reader);
-        return new EmployeeService(NullLogger<EmployeeService>.Instance, repo);
+        var reader = new EmployeeFileReader(NullLogger<EmployeeFileReader>.Instance);
+        return new EmployeeService(NullLogger<EmployeeService>.Instance, reader);
     }
     
     [Fact]
@@ -21,7 +20,7 @@ public class EmployeeRepoTests
         var service = GetService();
         
         // Act
-        var result = service.Task1();
+        var result = service.Task1_GetEmployee();
         
         // Assert
         Assert.True(false);
