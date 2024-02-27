@@ -1,6 +1,6 @@
 using EmployeeConsole.Utilities;
 using EmployeeCore.IO;
-using EmployeeCore.Repositories;
+using EmployeeCore.Services;
 using Microsoft.Extensions.Logging;
 
 // get main logger
@@ -8,7 +8,7 @@ var mainLogger = AppConfiguration.GetLogger<Program>();
 mainLogger.LogInformation("----- Application started. ------");
 
 // create instances
-var repo = new EmployeeRepo(new EmployeeDataReader(AppConfiguration.GetLogger<EmployeeDataReader>()));
+var repo = new EmployeeFileReader(AppConfiguration.GetLogger<EmployeeFileReader>());
 var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>(), repo);
 
 // Solve the tasks defined below
