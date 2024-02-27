@@ -2,17 +2,17 @@ using EmployeeCore.Models;
 
 namespace EmployeeCore.IO;
 
-public interface IEmployeeDataReader
+public interface IEmployeeRepository
 {
     /// <summary>
     /// Read employees.json file
     /// </summary>
     /// <returns></returns>
-    IEnumerable<Employee> ReadEmployeesFile();
+    IEnumerable<Employee> GetEmployeeData();
 
     /// <summary>
     /// Read skills.json file.
     /// </summary>
     /// <returns></returns>
-    IEnumerable<Skill> ReadSkillsFile();
+    IEnumerable<Skill> GetSkillData();
 }
