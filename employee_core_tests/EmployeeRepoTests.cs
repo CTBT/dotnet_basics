@@ -32,12 +32,19 @@ public class EmployeeRepoTests
     public void Task1_ShouldReturnCorrectEmployee()
     {
         // Arrange
-        var testSkills = new List<Skill>()
+        var testSkills = new List<Skill>
         {
             new() { Id = 1, Name = "TestSkill1" },
             new() { Id = 2, Name = "TestSkill2" }
         };
-        var testEmployees = new List<Employee>();
+        var testEmployees = new List<Employee>
+        {
+            new() { Id = 0, Name = "Dr. Tester Stuttgart1", Location = Location.Stuttgart, Skills = [1, 2] },
+            new() { Id = 1, Name = "Dr. Tester Stuttgart2", Location = Location.Stuttgart, Skills = [1]  },
+            new() { Id = 2, Name = "Dr. Tester Bonn", Skills = [1, 2], Location = Location.Bonn },
+            new() { Id = 3, Name = "Tester1", Skills = [1], Location = Location.Bonn },
+            new() { Id = 4, Name = "Tester2", Skills = [], Location = Location.Bonn }
+        };
         
         var service = SetupTest(testEmployees, testSkills);
         
@@ -53,7 +60,13 @@ public class EmployeeRepoTests
     public void Task2_ReturnsCorrectEmployeeSkillNames()
     {
         // Arrange
-        var service = GetService();
+        var testSkills = new List<Skill>
+        {
+            new() { Id = 1, Name = "TestSkill1" },
+            new() { Id = 2, Name = "TestSkill2" }
+        };
+        var testEmployees = new List<Employee>();
+        var service = SetupTest(testEmployees, testSkills);
         var employee = new Employee
         {
             Id = 0,
@@ -75,12 +88,24 @@ public class EmployeeRepoTests
     public void Task3_ShouldReturnCorrectCount()
     {
         // Arrange
-        var service = GetService();
+        var testSkills = new List<Skill>
+        {
+            new() { Id = 1, Name = "TestSkill1" },
+            new() { Id = 2, Name = "TestSkill2" }
+        };
+        var testEmployees = new List<Employee>
+        {
+            new() { Id = 2, Name = "Dr. Tester Bonn", Skills = [1, 2], Location = Location.Bonn },
+            new() { Id = 3, Name = "Tester1", Skills = [1], Location = Location.Bonn },
+            new() { Id = 4, Name = "Tester2", Skills = [], Location = Location.Bonn }
+        };
+        
+        var service = SetupTest(testEmployees, testSkills);
         
         // Act
         var result = service.Task3_GetEmployeeCounts(1);
         
         // Assert
-        result.Should().Be(4);
+        result.Should().Be(2);
     }
 }
