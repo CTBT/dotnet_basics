@@ -1,10 +1,9 @@
-using EmployeeCore.IO;
 using EmployeeCore.Models;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.Services;
 
-public class EmployeeService(ILogger<EmployeeService> _logger, EmployeeFileReader repo)
+public class EmployeeService(ILogger<EmployeeService> _logger)
 {
     
     public Employee? Task1_GetEmployee()
