@@ -10,9 +10,10 @@ public class EmployeeService(ILogger<EmployeeService> _logger, EmployeeFileReade
     public Employee? Task1_GetEmployee()
     {
         _logger.LogInformation("----- Result task 1 (employee-name): ------");
+        var allSkillCount = repo.GetSkillData().Count();
         
         return repo.GetEmployeeData()
-            .FirstOrDefault(i => i.Skills.Count( ) == 11 && i.Location == Location.Stuttgart && i.Name.StartsWith("Dr."));
+            .FirstOrDefault(i => i.Skills.Count( ) == allSkillCount && i.Location == Location.Stuttgart && i.Name.StartsWith("Dr."));
     }
     
     public IEnumerable<string> Task2_GetSkillNames(Employee employee)
