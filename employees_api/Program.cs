@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeFileReader>();
+builder.Services.AddOutputCache();
 
 var app = builder.Build();
 
@@ -21,13 +22,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseOutputCache();
 app.UseHttpsRedirection();
 
 app.MapGet("/employee", FindEmployeeByIdRequestHandler)
 .WithName("FindEmployeeById")
-.WithOpenApi();
+.WithOpenApi()
+.CacheOutput();
 
 app.Run();
+
+
+// improve your api:
+// add output caching
+// add error handling
 
 Employee? FindEmployeeByIdRequestHandler([FromServices]EmployeeService service, [FromQuery]int  id)
 {
