@@ -29,7 +29,7 @@ public class EmployeeService(ILogger<EmployeeService> _logger, EmployeeFileReade
         
         return repo
             .GetEmployeeData()
-            .Count(i => i.Skills.Contains(5));
+            .Count(i => i.Skills.Contains(skillId));
     }
     
     public IOrderedEnumerable<Employee> Task4_GetExperts(int skillId, Location location)
