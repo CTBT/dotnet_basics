@@ -53,7 +53,7 @@ to efficiently solve given business requirements
 2. Implement the missing functions and print your results to the console by using the logging api.
 
 Bonus ⭐: 
-Find the performance bug by activating the debug log level
+Find the performance bug
 --- 
 
 ## Testing
@@ -76,18 +76,14 @@ Bonus ⭐: Use Theories
 
 --- 
 
---- 
-
 ## Implementing APIs
 
-- new webapi
-    - minimalapi
-    - core
+- web host
 - dependency injection
+- open api
+- caching
+- parameters
+- results and http status codes
 - configuration
 
---- 
-
-## Bonus:
-
-Fix issues
+---
