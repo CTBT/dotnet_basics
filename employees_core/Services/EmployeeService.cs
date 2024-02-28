@@ -37,7 +37,7 @@ public class EmployeeService(ILogger<EmployeeService> _logger, EmployeeFileReade
         _logger.LogInformation("----- Result task 4 (database experts in bonn): ------");
         return repo
             .GetEmployeeData()
-            .Where(i => i.Skills.Contains(5) && i.Location == Location.Bonn)
+            .Where(i => i.Skills.Contains(skillId) && i.Location == location)
             .Take(5)
             .OrderBy(i => i.Name);
     }
