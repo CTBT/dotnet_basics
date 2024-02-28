@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "employees_console", "employ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "employees_core", "employees_core\employees_core.csproj", "{4F81E427-BD52-46C9-AB4E-549756180E2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "employees_api", "employees_api\employees_api.csproj", "{6EA54E0C-1C79-4BB2-8AE0-1CCE030B3B60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{4F81E427-BD52-46C9-AB4E-549756180E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F81E427-BD52-46C9-AB4E-549756180E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F81E427-BD52-46C9-AB4E-549756180E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA54E0C-1C79-4BB2-8AE0-1CCE030B3B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA54E0C-1C79-4BB2-8AE0-1CCE030B3B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA54E0C-1C79-4BB2-8AE0-1CCE030B3B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA54E0C-1C79-4BB2-8AE0-1CCE030B3B60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
