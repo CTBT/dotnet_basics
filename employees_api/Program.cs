@@ -15,11 +15,7 @@ builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeFileReader>();
 builder.Services.AddOutputCache();
     
-
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-});
+// json serialization
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
