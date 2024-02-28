@@ -2,7 +2,6 @@ using EmployeeCore.IO;
 using EmployeeCore.Models;
 using EmployeeCore.Services;
 using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
 namespace employee_core_tests;
@@ -28,9 +27,35 @@ public class EmployeeRepoTests
     // Objects: https://fluentassertions.com/basicassertions/
     // Collections:  https://fluentassertions.com/collections/
     // bonus: use a Theory do define multiple test cases
+
+    [Fact]
+    public void FindEmployeeById_ShouldFindEmployee()
+    {
+        // Arrange
+        var testSkills = new List<Skill>
+        {
+            new() { Id = 1, Name = "TestSkill1" },
+            new() { Id = 2, Name = "TestSkill2" }
+        };
+        var testEmployees = new List<Employee>
+        {
+            new() { Id = 0, Name = "Testnutzer 1", Location = Location.Stuttgart },
+            new() { Id = 1, Name = "Testnutzer 2", Location = Location.Bonn},
+        };
+        
+        var service = SetupTest(testEmployees, testSkills);   
+        
+        // Act
+        var result = service.FindEmployee(1);
+        
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().Match<Employee>(i => i.Name == "Testnutzer 2");
+
+    }
     
     [Fact]
-    public void Task1_ShouldReturnCorrectEmployee()
+    public void GetEmployees_ShouldReturnCorrectEmployees()
     {
         // Arrange
         var testSkills = new List<Skill>
@@ -50,15 +75,16 @@ public class EmployeeRepoTests
         var service = SetupTest(testEmployees, testSkills);
         
         // Act
-        var result = service.FindEmployee(1);
+        var result = service.GetEmployees(1, Location.Stuttgart);
         
         // Assert
         result.Should().NotBeNull();
-        result.Should().Match<Employee>(i => i.Location == Location.Stuttgart && i.Name.StartsWith("Dr.") && i.Skills.Count() == 2);
+        result.Should().AllSatisfy(i => i.Location = Location.Stuttgart);
+        result.Should().AllSatisfy(i => i.Skills.Contains(1));
     }
     
     [Fact]
-    public void Task2_ReturnsCorrectEmployeeSkillNames()
+    public void GetEmployeeSkillNames_ReturnsCorrectEmployeeSkillNames()
     {
         // Arrange
         var testSkills = new List<Skill>
@@ -77,7 +103,7 @@ public class EmployeeRepoTests
         };
         
         // Act
-        var result = service.Task2_GetSkillNames(employee);
+        var result = service.GetEmployeeSkillNames(employee);
         
         // Assert
         result.Should().HaveCount(2);
@@ -86,7 +112,7 @@ public class EmployeeRepoTests
     }
     
     [Fact]
-    public void Task3_ShouldReturnCorrectCount()
+    public void GetEmployeeCount_ShouldReturnCorrectCount()
     {
         // Arrange
         var testSkills = new List<Skill>
@@ -104,9 +130,56 @@ public class EmployeeRepoTests
         var service = SetupTest(testEmployees, testSkills);
         
         // Act
-        var result = service.Task3_GetEmployeeCounts(1);
+        var result = service.GetEmployeeCount(1);
         
         // Assert
         result.Should().Be(2);
+    }
+
+    [Fact]
+    public void GetEmployeesPerSkill_ShouldContainAllSkills()
+    {
+        // Arrange
+        var testSkills = new List<Skill>
+        {
+            new() { Id = 1, Name = "TestSkill1" },
+            new() { Id = 2, Name = "TestSkill2" }
+        };
+        var testEmployees = new List<Employee>();
+        
+        var service = SetupTest(testEmployees, testSkills);
+        
+        // Act
+        var result = service.GetEmployeesPerSkill();
+        
+        // Assert
+        result.Should().ContainKeys(testSkills);
+    }
+    
+    [Fact]
+    public void GetEmployeesPerSkill_ShouldReturnCorrectCounts()
+    {
+        // Arrange
+        var testSkills = new List<Skill>
+        {
+            new() { Id = 1, Name = "TestSkill1" },
+            new() { Id = 2, Name = "TestSkill2" }
+        };
+        var testEmployees = new List<Employee>
+        {
+            new() { Id = 1, Name = "Tester1", Skills = [1, 2], Location = Location.Bonn },
+            new() { Id = 2, Name = "Tester2", Skills = [1, 2], Location = Location.Bonn },
+            new() { Id = 3, Name = "Tester3", Skills = [1], Location = Location.Bonn },
+            new() { Id = 4, Name = "Tester4", Skills = [], Location = Location.Bonn }
+        };
+        
+        var service = SetupTest(testEmployees, testSkills);
+        
+        // Act
+        var result = service.GetEmployeesPerSkill();
+        
+        // Assert
+        result[testSkills[0]].Should().Be(3);
+        result[testSkills[1]].Should().Be(2);
     }
 }
