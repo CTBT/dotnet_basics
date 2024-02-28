@@ -1,63 +1,64 @@
 using EmployeeCore.IO;
 using EmployeeCore.Models;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.Services;
 
-public class EmployeeService(ILogger<EmployeeService> _logger, IEmployeeRepository repo)
+public class EmployeeService(IEmployeeRepository repo)
 {
-    
-    public Employee? Task1_GetEmployee()
+
+    public IEnumerable<Skill> GetSkills()
     {
-        _logger.LogInformation("----- Result task 1 (employee-name): ------");
-        
+        return repo.GetSkillData();
+    }
+    public Employee? FindEmployee(int id)
+    {
         return repo.GetEmployeeData()
-            .FirstOrDefault(i => i.Skills.Count( ) == 11 && i.Location == Location.Stuttgart && i.Name.StartsWith("Dr."));
+            .SingleOrDefault(i => i.Id == id);
     }
     
-    public IEnumerable<string> Task2_GetSkillNames(Employee employee)
+    public IEnumerable<string> GetEmployeeSkillNames(Employee employee)
     {
-        _logger.LogInformation("----- Result task 2 (skill-names): ------");
-        
         return employee.Skills
             .Join(repo.GetSkillData(), i => i, skill => skill.Id, (i, skill) => skill.Name);
     }
     
-    public int Task3_GetEmployeeCounts(int skillId)
+    public int GetEmployeeCount(int skillId)
     {
-        _logger.LogInformation("----- Result task 3 (employee-counts): ------");
-        
         return repo
             .GetEmployeeData()
             .Count(i => i.Skills.Contains(skillId));
     }
     
-    public IOrderedEnumerable<Employee> Task4_GetExperts(int skillId, Location location)
+    public IOrderedEnumerable<Employee> GetEmployees(int? skillId, Location? location)
     {
-        _logger.LogInformation("----- Result task 4 (database experts in bonn): ------");
-        return repo
-            .GetEmployeeData()
-            .Where(i => i.Skills.Contains(skillId) && i.Location == location)
-            .Take(5)
-            .OrderBy(i => i.Name);
+        var data = repo.GetEmployeeData();
+
+        if (skillId is not null)
+        {
+            data = data.Where(i => i.Skills.Contains((int)skillId));
+        }
+
+        if (location is not null)
+        {
+            data = data.Where(i => i.Location == location);
+        }
+        
+        return data.OrderBy(i => i.Name);
     }
     
-    public Dictionary<Skill, int> Task5_GetEmployeesPerSkill()
+    public Dictionary<Skill, int> GetEmployeesPerSkill()
     {
-        _logger.LogInformation("----- Result task 5 (employees per skill): ------");
-
         return repo.GetSkillData()
             .ToDictionary(skill => skill, skill => repo.GetEmployeeData()
                 .Count(i => i.Skills.Contains(skill.Id)));
     }
     
-    public Dictionary<Location, int> Task6_GetEmployeesPerLocation()
+    public Dictionary<Location, int> GetEmployeesPerLocation()
     {
-        _logger.LogInformation("----- Result task 6 (employees per location ordered): ------");
-
         return repo.GetEmployeeData()
             .GroupBy(i => i.Location)
             .ToDictionary(t=> t.Key, t=> t.Count())
-            .OrderBy(i => i.Value).ToDictionary();
+            .OrderBy(i => i.Value)
+            .ToDictionary();
     }
 }
