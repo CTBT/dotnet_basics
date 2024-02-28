@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.IO;
 
-public class EmployeeFileReader(ILogger<EmployeeFileReader> logger, string path) : IEmployeeRepository
+public class EmployeeFileReader(ILogger<EmployeeFileReader> logger) : IEmployeeRepository
 {
     private IEnumerable<T> ReadFile<T>(string fileName)
     {
-        var combinedPath = Path.Combine(path, fileName);
+        var combinedPath = Path.Combine("Resources", fileName);
         var jsonString = File.ReadAllText(combinedPath);
         return JsonSerializer.Deserialize<IEnumerable<T>>(jsonString) ?? new List<T>();
     }
