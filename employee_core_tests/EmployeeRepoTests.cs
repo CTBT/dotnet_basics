@@ -13,6 +13,13 @@ public class EmployeeRepoTests
         return new EmployeeService(NullLogger<EmployeeService>.Instance, reader);
     }
     
+    // write tests for the methods in the EmployeeService class
+    // use descriptive test names
+    // think about all possible inputs and outputs
+    // use FluentAssertions library to write assertions: 
+    // Objects: https://fluentassertions.com/basicassertions/
+    // Collections:  https://fluentassertions.com/collections/
+    
     [Fact]
     public void Task1()
     {
