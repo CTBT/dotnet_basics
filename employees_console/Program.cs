@@ -10,7 +10,7 @@ mainLogger.LogInformation("----- Application started. ------");
 
 // create instances
 var repo = new EmployeeFileReader(AppConfiguration.GetLogger<EmployeeFileReader>());
-var service = new EmployeeService(AppConfiguration.GetLogger<EmployeeService>());
+var service = new EmployeeService();
 
 // Solve the tasks defined below
 // methods that could be helpfull:
