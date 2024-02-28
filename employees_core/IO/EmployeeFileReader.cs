@@ -4,11 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeCore.IO;
 
-public class EmployeeFileReader(ILogger<EmployeeFileReader> logger) : IEmployeeRepository
+public class EmployeeFileReader(ILogger<EmployeeFileReader> logger, string path) : IEmployeeRepository
 {
-    private static IEnumerable<T> ReadFile<T>(string fileName)
+    private IEnumerable<T> ReadFile<T>(string fileName)
     {
-        var jsonString = File.ReadAllText(fileName);
+        var combinedPath = Path.Combine(path, fileName);
+        var jsonString = File.ReadAllText(combinedPath);
         return JsonSerializer.Deserialize<IEnumerable<T>>(jsonString) ?? new List<T>();
     }
     
@@ -19,7 +20,7 @@ public class EmployeeFileReader(ILogger<EmployeeFileReader> logger) : IEmployeeR
     public IEnumerable<Employee> GetEmployeeData()
     {
         logger.LogDebug("Full employee list read operation");
-        return ReadFile<Employee>("Resources/employees.json");
+        return ReadFile<Employee>("employees.json");
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public class EmployeeFileReader(ILogger<EmployeeFileReader> logger) : IEmployeeR
     public IEnumerable<Skill> GetSkillData()
     {
         logger.LogDebug("Full skill list read operation");
-        return ReadFile<Skill>("Resources/skills.json");
+        return ReadFile<Skill>("skills.json");
     }
 
 }
