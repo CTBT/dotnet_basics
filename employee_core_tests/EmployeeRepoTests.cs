@@ -18,7 +18,7 @@ public class EmployeeRepoTests
         readerMoq.Setup(reader => reader.GetSkillData())
             .Returns(skillTestData);
         
-        return new EmployeeService(NullLogger<EmployeeService>.Instance, readerMoq.Object);
+        return new EmployeeService(readerMoq.Object);
     }
     
     // write tests for the methods in the EmployeeService class
@@ -27,6 +27,7 @@ public class EmployeeRepoTests
     // use FluentAssertions library to write assertions: 
     // Objects: https://fluentassertions.com/basicassertions/
     // Collections:  https://fluentassertions.com/collections/
+    // bonus: use a Theory do define multiple test cases
     
     [Fact]
     public void Task1()
@@ -42,7 +43,7 @@ public class EmployeeRepoTests
         var service = SetupTest(testEmployees, testSkills);
         
         // Act
-        var result = service.Task1_GetEmployee();
+        var result = service.FindEmployee(1);
         
         // Assert
         result.Should().BeNull();
