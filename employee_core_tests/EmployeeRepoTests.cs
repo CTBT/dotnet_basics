@@ -37,7 +37,7 @@ public class EmployeeRepoTests
     }
     
     [Fact]
-    public void Task2_ShouldReturnCorrectEmployeeSkillNames()
+    public void Task2_ReturnsCorrectEmployeeSkillNames()
     {
         // Arrange
         var service = GetService();
@@ -63,20 +63,11 @@ public class EmployeeRepoTests
     {
         // Arrange
         var service = GetService();
-        var employee = new Employee
-        {
-            Id = 0,
-            Name = "Tester",
-            Skills = [1,2],
-            Location = Location.Bonn
-        };
         
         // Act
-        var result = service.Task2_GetSkillNames(employee);
+        var result = service.Task3_GetEmployeeCounts(1);
         
         // Assert
-        result.Should().HaveCount(2);
-        result.Should().ContainMatch("TestSkill1");
-        result.Should().ContainMatch("TestSkill2");
+        result.Should().Be(4);
     }
 }
