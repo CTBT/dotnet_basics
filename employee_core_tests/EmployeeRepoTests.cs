@@ -2,7 +2,6 @@ using EmployeeCore.IO;
 using EmployeeCore.Models;
 using EmployeeCore.Services;
 using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
 namespace employee_core_tests;
@@ -38,14 +37,30 @@ public class EmployeeRepoTests
             new() { Id = 1, Name = "TestSkill1" },
             new() { Id = 2, Name = "TestSkill2" }
         };
-        var testEmployees = new List<Employee>();
+        var testEmployees = new List<Employee>()
+        {
+            new Employee()
+            {
+                Id = 0,
+                Location = Location.Bonn,
+                Name = "TestUser1"
+            },
+            new Employee()
+            {
+                Id = 1,
+                Location = Location.Bonn,
+                Name = "TestUser2"
+            }
+        };
         
         var service = SetupTest(testEmployees, testSkills);
         
         // Act
-        var result = service.FindEmployee(1);
+        var result = service.FindEmployee(0);
         
         // Assert
-        result.Should().BeNull();
+        result.Should().NotBeNull();
+        result.Should().Match<Employee>(i => i.Id == 0);
+        result.Should().Match<Employee>(i => i.Name == "TestUser1");
     }
 }
